@@ -8,7 +8,7 @@
           @click="toggleComplete(todoItem, index)"
         ></i>
         <span :class="{ textCompleted: todoItem.completed }">{{
-          todoItem.item
+          todoItem.item 
         }}</span>
         <span class="removeBtn" @click="removeTodo(todoItem, index)">
           <i class="fa-solid fa-trash-can"></i>
@@ -31,7 +31,7 @@ export default {
       this.$emit("removeItem", todoItem, index);
     },
     toggleComplete(todoItem, index) {
-      todoItem.completed = !todoItem.completed;
+      this.$emit("toggleComplete", todoItem, index);
     },
   },
 };

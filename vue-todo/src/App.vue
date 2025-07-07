@@ -2,7 +2,11 @@
   <div id="app">
     <TodoHeader />
     <TodoInput @addTodo="addOneItem" />
-    <TodoList :todoItems="todoItems" @removeItem="removeOneItem" />
+    <TodoList
+      :todoItems="todoItems"
+      @removeItem="removeOneItem"
+      @toggleComplete="toggleOneItem"
+    />
     <TodoFooter />
   </div>
 </template>
@@ -45,6 +49,16 @@ export default {
     removeOneItem(todoItem, index) {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
+    },
+    toggleOneItem(todoItem, index) {
+      // 방법 1
+      // todoItem.completed = !todoItem.completed;
+      // 방법 2
+      this.todoItems[index].completed = !this.todoItems[index].completed;
+
+      // 로컬 스토리지의 데이터를 갱신
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
   },
 };
