@@ -23,8 +23,7 @@ export default {
   methods: {
     addTodo() {
       if (this.newTodo !== "") {
-        var obj = { completed: false, item: this.newTodo };
-        localStorage.setItem(this.newTodo, JSON.stringify(obj));
+        this.$emit("addTodo", this.newTodo);
         this.clearInput();
       }
     },
