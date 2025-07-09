@@ -1,13 +1,21 @@
 <template>
   <div id="app">
     <TodoHeader />
-    <TodoInput @addTodo="addOneItem" />
+    <TodoInput @addTodo="addOneItem" @showModal="handleShowModal" />
     <TodoList
       :todoItems="todoItems"
       @removeItem="removeOneItem"
       @toggleComplete="toggleOneItem"
     />
     <TodoFooter @clearTodo="clearAllItems" />
+    <Modal :show="showModal" @close="closeModal">
+      <template #header>
+        <h3>알림</h3>
+      </template>
+      <template #body>
+        <p>아무것도 입력하지 않았습니다.</p>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -16,11 +24,13 @@ import TodoHeader from "./components/TodoHeader.vue";
 import TodoInput from "./components/TodoInput.vue";
 import TodoList from "./components/TodoList.vue";
 import TodoFooter from "./components/TodoFooter.vue";
+import Modal from "./components/common/Modal.vue";
 
 export default {
   data() {
     return {
       todoItems: [],
+      showModal: false,
     };
   },
   created() {
@@ -39,6 +49,7 @@ export default {
     TodoInput,
     TodoList,
     TodoFooter,
+    Modal,
   },
   methods: {
     addOneItem(todoItem) {
@@ -63,6 +74,12 @@ export default {
     clearAllItems() {
       localStorage.clear();
       this.todoItems = [];
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    handleShowModal() {
+      this.showModal = true;
     },
   },
 };

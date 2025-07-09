@@ -25,6 +25,8 @@ export default {
       if (this.newTodo !== "") {
         this.$emit("addTodo", this.newTodo);
         this.clearInput();
+      } else {
+        this.$emit("showModal");
       }
     },
     clearInput() {
